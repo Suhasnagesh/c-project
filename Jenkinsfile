@@ -1,20 +1,41 @@
- pipeline {
-    agent {
-        label '!windows'
-    }
-
-    environment {
-        DISABLE_AUTH = 'true'
-        DB_ENGINE    = 'sqlite'
-    }
-
-    stages {
-        stage('Build') {
-            steps {
-                echo "Database engine is ${DB_ENGINE}"
-                echo "DISABLE_AUTH is ${DISABLE_AUTH}"
-                sh 'printenv'
-            }
-        }
-    }
+pipeline {
+	agent { label 'master' } 
+	stages {
+		stage('Both build and test') {
+			parallel {
+				stage('Build') { 
+					steps {
+						sh 'sleep 15; echo "This is a Build stage"'
+					}
+				}
+				
+				stage('Test'){
+					steps {
+						sh '''
+							sleep 15
+							echo "This is a Test stage"
+						'''	
+						git branch: 'main', url: ''
+					}
+				}
+			} 
+		}
+		stage('Deploy'){
+			steps {
+				sh '''
+					sleep 5
+					echo "This is a Deploy stage"
+				'''
+			}
+		}
+		
+		stage('My-stage'){
+			steps {
+				sh '''
+					sleep 5
+					echo "This is a My-stage stage"
+				'''
+			}
+		}	
+	}
 }
