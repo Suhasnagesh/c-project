@@ -5,6 +5,7 @@ pipeline {
 		{
 			steps {
 				sh 'sleep 2; echo "hi suhas"'
+				sh 'df -h .'
 			}
 		}
 	
