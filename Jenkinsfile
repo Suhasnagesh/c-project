@@ -7,8 +7,8 @@ pipeline {
 				sh 'sleep 2; echo "hi suhas"'
 			}
 		}
-	}
-stages {
+	
+
 		stage('deploy')
 		{
 			steps {
