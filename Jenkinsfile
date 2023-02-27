@@ -1,36 +1,21 @@
-pipeline {
-	agent any
-	stages {
-		stage('build')
-		{
-			steps {
-				sh 'sleep 2; echo "hi suhas"'
-				sh 'df -h .'
+	pipeline {
+				agent 
+				environment {
+					DISABLE_AUTH = 'true'
+					DB_ENGINE    = 'sqlite'
+				}
+			
+				stages {
+					stage('Build') {
+						steps {
+							echo "Database engine is ${DB_ENGINE}"
+							echo "DISABLE_AUTH is ${DISABLE_AUTH}"
+							sh 'printenv'
+						}
+					}
+				}
 			}
-		}
 	
-
-		stage('deploy')
-		{
-			steps {
-				sh 'sleep 1; echo "hi suhas all ok"'
-			}
-		}
-	stage('suhas')
-		{
-			steps {
-				sh 'sleep 1; echo "hi suhas all ok1"'
-			}
-		}
-		stage('suvi')
-		{
-			steps {
-				sh 'sleep 1; echo "hi suhas all ok2"'
-			}
-		}
-	
-	}
-}
 	
 
 
